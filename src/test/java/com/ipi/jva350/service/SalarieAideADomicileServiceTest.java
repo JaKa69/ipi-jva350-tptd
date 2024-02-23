@@ -1,0 +1,38 @@
+package com.ipi.jva350.service;
+
+import com.ipi.jva350.exception.SalarieException;
+import com.ipi.jva350.model.SalarieAideADomicile;
+import com.ipi.jva350.repository.SalarieAideADomicileRepository;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.time.LocalDate;
+@ExtendWith(MockitoExtension.class)
+class SalarieAideADomicileServiceTest {
+    @Mock
+    private SalarieAideADomicileRepository salarieAideADomicileRepository;
+    @InjectMocks
+    private SalarieAideADomicileService salarieAideADomicileService;
+    @Test
+    void ajouteConge() throws SalarieException {
+        // Given :
+        SalarieAideADomicile monSalarie = new SalarieAideADomicile("Paul",
+                LocalDate.of(2022, 6, 28),
+                LocalDate.of(2023, 11, 1),
+                9, 2.5,
+                80, 20, 8);
+        // When :
+        salarieAideADomicileService.ajouteConge(monSalarie, LocalDate.of(2023, 12, 17),
+                LocalDate.of(2023, 12, 18));
+        // Then :
+        ArgumentCaptor<SalarieAideADomicile> salarieAideADomicileCaptor = ArgumentCaptor.forClass(SalarieAideADomicile.class);
+        Mockito.verify(salarieAideADomicileRepository, Mockito.times(1)).save(salarieAideADomicileCaptor.capture()); // arg capture !
+        Assertions.assertEquals(1L, salarieAideADomicileCaptor.getValue().getCongesPayesPrisAnneeNMoins1());
+    }
+}
