@@ -35,4 +35,19 @@ class SalarieAideADomicileServiceTest {
         Mockito.verify(salarieAideADomicileRepository, Mockito.times(1)).save(salarieAideADomicileCaptor.capture()); // arg capture !
         Assertions.assertEquals(1L, salarieAideADomicileCaptor.getValue().getCongesPayesPrisAnneeNMoins1());
     }
+
+//    @Test
+//    @BeforeEach
+//    void creerSalarieAideADomicile() throws SalarieException, EntityExistsException {
+//        //GIVEN
+//        SalarieAideADomicile monSalarie = new SalarieAideADomicile("Paul",
+//                LocalDate.of(2022, 6, 28),
+//                LocalDate.of(2023, 11, 1),
+//                9, 2.5,
+//                80, 20, 8);
+//        //WHEN
+//        salarieAideADomicileService.creerSalarieAideADomicile(monSalarie);
+//        //THEN
+//
+//    }
 }
