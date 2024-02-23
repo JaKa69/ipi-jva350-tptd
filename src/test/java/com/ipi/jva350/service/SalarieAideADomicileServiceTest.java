@@ -3,7 +3,6 @@ package com.ipi.jva350.service;
 import com.ipi.jva350.exception.SalarieException;
 import com.ipi.jva350.model.SalarieAideADomicile;
 import com.ipi.jva350.repository.SalarieAideADomicileRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -13,6 +12,10 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
 @ExtendWith(MockitoExtension.class)
 class SalarieAideADomicileServiceTest {
     @Mock
@@ -33,7 +36,23 @@ class SalarieAideADomicileServiceTest {
         // Then :
         ArgumentCaptor<SalarieAideADomicile> salarieAideADomicileCaptor = ArgumentCaptor.forClass(SalarieAideADomicile.class);
         Mockito.verify(salarieAideADomicileRepository, Mockito.times(1)).save(salarieAideADomicileCaptor.capture()); // arg capture !
-        Assertions.assertEquals(1L, salarieAideADomicileCaptor.getValue().getCongesPayesPrisAnneeNMoins1());
+        assertEquals(1L, salarieAideADomicileCaptor.getValue().getCongesPayesPrisAnneeNMoins1());
+    }
+
+    @Test
+    void testCalculeLimiteEntrepriseCongesPermis() {
+        // Given
+        LocalDate moisEnCours = LocalDate.of(2022, 3, 1);
+        double congesPayesAcquisAnneeNMoins1 = 20;
+        LocalDate moisDebutContrat = LocalDate.of(2020, 1, 1);
+        LocalDate premierJourDeConge = LocalDate.of(2022, 7, 1);
+        LocalDate dernierJourDeConge = LocalDate.of(2022, 7, 10);
+        when(salarieAideADomicileRepository.partCongesPrisTotauxAnneeNMoins1()).thenReturn(0.5);
+        // When
+        long limiteConges = this.salarieAideADomicileService.calculeLimiteEntrepriseCongesPermis(moisEnCours, congesPayesAcquisAnneeNMoins1, moisDebutContrat, premierJourDeConge, dernierJourDeConge);
+        // Then
+        long expectedLimiteConges = 5;
+        assertEquals(expectedLimiteConges, limiteConges);
     }
 
 //    @Test
