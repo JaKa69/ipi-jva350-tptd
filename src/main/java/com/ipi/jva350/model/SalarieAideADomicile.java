@@ -62,6 +62,18 @@ public class SalarieAideADomicile {
         //this.congesPayesPris = congesPayesPris;
     }
 
+    public SalarieAideADomicile(Long id, String nom, LocalDate moisEnCours, LocalDate moisDebutContrat, double joursTravaillesAnneeN, double congesPayesAcquisAnneeN, double joursTravaillesAnneeNMoins1, double congesPayesAcquisAnneeNMoins1, double congesPayesPrisAnneeNMoins1) {
+        this.id = id;
+        this.nom = nom;
+        this.moisEnCours = moisEnCours;
+        this.moisDebutContrat = moisDebutContrat;
+        this.joursTravaillesAnneeN = joursTravaillesAnneeN;
+        this.congesPayesAcquisAnneeN = congesPayesAcquisAnneeN;
+        this.joursTravaillesAnneeNMoins1 = joursTravaillesAnneeNMoins1;
+        this.congesPayesAcquisAnneeNMoins1 = congesPayesAcquisAnneeNMoins1;
+        this.congesPayesPrisAnneeNMoins1 = congesPayesPrisAnneeNMoins1;
+    }
+
     /**
      * D'après https://femme-de-menage.ooreka.fr/comprendre/conges-payes-femme-de-menage :
      * Pour s'ouvrir des droits à congés payés – capitalisation de jours + prise et/ou paiement – l'aide ménagère doit avoir travaillé pour le particulier employeur :

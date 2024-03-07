@@ -3,6 +3,7 @@ package com.ipi.jva350.service;
 import com.ipi.jva350.exception.SalarieException;
 import com.ipi.jva350.model.SalarieAideADomicile;
 import com.ipi.jva350.repository.SalarieAideADomicileRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -15,6 +16,7 @@ import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
@@ -71,5 +73,31 @@ class SalarieAideADomicileServiceTest {
         ArgumentCaptor<SalarieAideADomicile> captor = ArgumentCaptor.forClass(SalarieAideADomicile.class);
         Mockito.verify(salarieAideADomicileRepository).save(captor.capture());
         assertEquals(captor.getValue(), monSalarie);
+    }
+
+    @Test
+    void creerSalarieAideADomicile_NullEchec() {
+        // GIVEN
+        SalarieAideADomicile monSalarie = null;
+
+        // WHEN & THEN
+        assertThrows(NullPointerException.class, () -> {
+            salarieAideADomicileService.creerSalarieAideADomicile(monSalarie);
+        });
+    }
+
+    @Test
+    void creerSalarieAideADomicileIdNotNull() {
+        // GIVEN
+        SalarieAideADomicile monSalarie = new SalarieAideADomicile(1L, "Paul",
+                LocalDate.of(2022, 6, 28),
+                LocalDate.of(2023, 11, 1),
+                9.5, 2.5,
+                80.5, 20, 8);
+
+        // WHEN & THEN
+        assertThrows(SalarieException.class, () -> {
+            salarieAideADomicileService.creerSalarieAideADomicile(monSalarie);
+        });
     }
 }
