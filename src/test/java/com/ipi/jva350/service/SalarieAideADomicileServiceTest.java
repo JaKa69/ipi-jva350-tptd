@@ -11,9 +11,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -35,7 +37,7 @@ class SalarieAideADomicileServiceTest {
                 LocalDate.of(2023, 12, 18));
         // Then :
         ArgumentCaptor<SalarieAideADomicile> salarieAideADomicileCaptor = ArgumentCaptor.forClass(SalarieAideADomicile.class);
-        Mockito.verify(salarieAideADomicileRepository, Mockito.times(1)).save(salarieAideADomicileCaptor.capture()); // arg capture !
+        Mockito.verify(salarieAideADomicileRepository, times(1)).save(salarieAideADomicileCaptor.capture()); // arg capture !
         assertEquals(1L, salarieAideADomicileCaptor.getValue().getCongesPayesPrisAnneeNMoins1());
     }
 
@@ -55,18 +57,19 @@ class SalarieAideADomicileServiceTest {
         assertEquals(expectedLimiteConges, limiteConges);
     }
 
-//    @Test
-//    @BeforeEach
-//    void creerSalarieAideADomicile() throws SalarieException, EntityExistsException {
-//        //GIVEN
-//        SalarieAideADomicile monSalarie = new SalarieAideADomicile("Paul",
-//                LocalDate.of(2022, 6, 28),
-//                LocalDate.of(2023, 11, 1),
-//                9, 2.5,
-//                80, 20, 8);
-//        //WHEN
-//        salarieAideADomicileService.creerSalarieAideADomicile(monSalarie);
-//        //THEN
-//
-//    }
+    @Test
+    void creerSalarieAideADomicile() throws SalarieException, EntityExistsException {
+        //GIVEN
+        SalarieAideADomicile monSalarie = new SalarieAideADomicile("Paul",
+                LocalDate.of(2022, 6, 28),
+                LocalDate.of(2023, 11, 1),
+                9, 2.5,
+                80, 20, 8);
+        //WHEN
+        salarieAideADomicileService.creerSalarieAideADomicile(monSalarie);
+        //THEN
+        ArgumentCaptor<SalarieAideADomicile> captor = ArgumentCaptor.forClass(SalarieAideADomicile.class);
+        Mockito.verify(salarieAideADomicileRepository).save(captor.capture());
+        assertEquals(captor.getValue(), monSalarie);
+    }
 }
