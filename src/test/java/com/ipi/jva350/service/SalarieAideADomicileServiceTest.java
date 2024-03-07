@@ -3,7 +3,6 @@ package com.ipi.jva350.service;
 import com.ipi.jva350.exception.SalarieException;
 import com.ipi.jva350.model.SalarieAideADomicile;
 import com.ipi.jva350.repository.SalarieAideADomicileRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -89,11 +88,7 @@ class SalarieAideADomicileServiceTest {
     @Test
     void creerSalarieAideADomicileIdNotNull() {
         // GIVEN
-        SalarieAideADomicile monSalarie = new SalarieAideADomicile(1L, "Paul",
-                LocalDate.of(2022, 6, 28),
-                LocalDate.of(2023, 11, 1),
-                9.5, 2.5,
-                80.5, 20, 8);
+        SalarieAideADomicile monSalarie = new SalarieAideADomicile(1L, "Paul");
 
         // WHEN & THEN
         assertThrows(SalarieException.class, () -> {

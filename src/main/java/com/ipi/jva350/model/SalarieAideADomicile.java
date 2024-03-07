@@ -62,16 +62,9 @@ public class SalarieAideADomicile {
         //this.congesPayesPris = congesPayesPris;
     }
 
-    public SalarieAideADomicile(Long id, String nom, LocalDate moisEnCours, LocalDate moisDebutContrat, double joursTravaillesAnneeN, double congesPayesAcquisAnneeN, double joursTravaillesAnneeNMoins1, double congesPayesAcquisAnneeNMoins1, double congesPayesPrisAnneeNMoins1) {
+    public SalarieAideADomicile(Long id, String nom) {
         this.id = id;
         this.nom = nom;
-        this.moisEnCours = moisEnCours;
-        this.moisDebutContrat = moisDebutContrat;
-        this.joursTravaillesAnneeN = joursTravaillesAnneeN;
-        this.congesPayesAcquisAnneeN = congesPayesAcquisAnneeN;
-        this.joursTravaillesAnneeNMoins1 = joursTravaillesAnneeNMoins1;
-        this.congesPayesAcquisAnneeNMoins1 = congesPayesAcquisAnneeNMoins1;
-        this.congesPayesPrisAnneeNMoins1 = congesPayesPrisAnneeNMoins1;
     }
 
     /**
